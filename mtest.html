@@ -1,0 +1,82 @@
+<head>
+	<title>mtest</title>
+</head>
+
+<body>
+	<br/><br/>
+	<div class="container">
+		<h3>Members list</h3>
+		<br/>
+		<div class="input-group">
+			<span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+			<input type="text" class="form-control" name="search" />
+		</div>
+		<br/>
+		{{> usersList}}
+	</div>
+</body>
+
+<template name="usersList">
+	<table class="table table-striped table-hover">
+		<thead>
+			<tr>
+				<th>First name</th>
+				<th>Last name</th>
+				<th>Phone number</th>
+				<th>Email</th>
+				<th>Address</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><input type="text" name="first-name" class="form-control" /></td>
+				<td><input type="text" name="last-name" class="form-control" /></td>
+				<td><input type="text" name="phone-number" class="form-control" /></td>
+				<td><input type="text" name="email" class="form-control" /></td>
+				<td><input type="text" name="address" class="form-control" /></td>
+				<td><button class="btn btn-primary btn-sm" name="button-add">Add</button></td>
+			</tr>
+			{{#each users}}
+			{{#if editing}}
+			{{> userEdit}}
+			{{else}}
+			{{> user}}
+			{{/if}}
+			{{/each}}
+		</tbody>
+	</table>
+</template>
+
+<template name="user">
+	<tr class="show-user">
+		<td>{{firstName}}</td>
+		<td>{{lastName}}</td>
+		<td>{{phoneNumber}}</td>
+		<td>{{email}}</td>
+		<td>{{address}}</td>
+	</tr>
+</template>
+
+<template name="userSearch">
+	<tr class="show-user">
+		<td>{{firstName}}</td>
+		<td>{{lastName}}</td>
+		<td>{{phoneNumber}}</td>
+		<td>{{email}}</td>
+		<td>{{address}}</td>
+	</tr>
+</template>
+
+<template name="userEdit">
+	<tr class="edit-user">
+		<td><input type="text" value="{{firstName}}" name="edit-first-name" class="form-control" /></td>
+		<td><input type="text" value="{{lastName}}" name="edit-last-name" class="form-control" /></td>
+		<td><input type="text" value="{{phoneNumber}}" name="edit-phone-number" class="form-control" /></td>
+		<td><input type="text" value="{{email}}" name="edit-email" class="form-control" /></td>
+		<td><input type="text" value="{{address}}" name="edit-address" class="form-control" /></td>
+		<td><button class="btn btn-primary btn-sm" name="edit-sumbit">Save</button></td>
+		<td><button class="btn btn-primary btn-sm" name="edit-cancel">Cancel</button></td>
+		<td><button class="btn btn-primary btn-sm" name="edit-delete">Delete</button></td>
+	</tr>
+</template>
