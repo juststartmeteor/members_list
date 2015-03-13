@@ -1,0 +1,6 @@
+.required {
+	border: 1px red solid;
+}
+.notValid {
+	border: 2px red solid;
+}
