@@ -10,30 +10,33 @@ Template.usersList.events({
 
 		if (confirm === true) {
 			if ($("[name='first-name']").val() === '') {
-				showRequiredField ("first-name");
+				showRequiredField("first-name");
 			} else if ($("[name='last-name']").val() === '') {
-				showRequiredField ("last-name");
+				showRequiredField("last-name");
 			} else if ($("[name='email']").val() === '') {
-				showRequiredField ("email");
+				showRequiredField("email");
 			} else {
-				var firstName = inputNameValid($("[name='first-name']").val());
-				var lastName = inputNameValid($("[name='last-name']").val());
-				var phoneNumber = inputPhoneNumberValid($("[name='phone-number']").val());
-				var email = inputEmailValid($("[name='email']").val());
+				var firstName = $("[name='first-name']").val();
+				var lastName = $("[name='last-name']").val();
+				var phoneNumber = $("[name='phone-number']").val();
+				var email = $("[name='email']").val();
 				var address = $("[name='address']").val();
 
-				if (firstName === false) {
-					showInputWrongField("first-name");
-				} else if (lastName === false) {
-					showInputWrongField("last-name");
-				} else if (email === false) {
-					showInputWrongField("email");
-				} else if (phoneNumber === false) {
-					showInputWrongField("phone-number");
-				} else {
-					Meteor.call("addUser", firstName, lastName, phoneNumber, email, address);
-					$(".add-new-user [type='text']").val('');
-				}
+				Meteor.call("addUser", firstName, lastName, phoneNumber, email, address, function (err, result) {
+					if (result === "First name is incorrect") {
+						showInputWrongField("first-name");
+					} else if (result === "Last name is incorrect") {
+						showInputWrongField("last-name");
+					} else if (result === "Phone number is incorrect") {
+						showInputWrongField("phone-number");
+					} else if (result === "Email is incorrect") {
+						showInputWrongField("email");
+					} else if (result === true) {
+						$(".add-new-user [type='text']").removeClass("required");
+						$(".add-new-user [type='text']").removeClass("notValid");
+						$(".add-new-user [type='text']").val('');
+					}
+				});
 			}
 		}
 	}
@@ -47,43 +50,18 @@ Template.usersList.helpers({
 			var searchKeyWords = Session.get("searchKeyWords");
 			var regex = new RegExp(searchKeyWords, "i");
 
-			return Users.find({$or: [{firstName: regex}, {lastName: regex}, {phoneNumber: regex}, {email: regex}, {address: regex}]});
+			return Users.find({$or: [{firstName: regex}, {lastName: regex}, {phoneNumber: regex}, {email: regex}, {address: regex}]}, {sort: {createdAt: -1}});
 		}
 	}
 });
 
-function showRequiredField (attributeName) {
+function showRequiredField(attributeName) {
 	$(".add-new-user [type='text']").removeClass("required");
-	$("[name='" + attributeName + "']").addClass("required");
+	$(".add-new-user [name='" + attributeName + "']").addClass("required");
 }
 
-function showInputWrongField (attributeName) {
+function showInputWrongField(attributeName) {
+	$(".add-new-user [type='text']").removeClass("required");
 	$(".add-new-user [type='text']").removeClass("notValid");
-	$("[name='" + attributeName + "']").addClass("notValid");
+	$(".add-new-user [name='" + attributeName + "']").addClass("notValid");
 }
-
-function inputNameValid(name) {
-	if (/^[a-zA-Z]+[\s]?[a-zA-Z]+$/.test(name)) {
-		return name;
-	} else {
-		return false;
-	}
-}
-
-function inputEmailValid(email) {
-	if (/^.+@.+\..+$/.test(email)) {
-		return email
-	} else {
-		return false;
-	}
-}
-
-function inputPhoneNumberValid(phoneNumber) {
-	if (/^[0-9]+$/.test(phoneNumber)) {
-		return phoneNumber
-	} else {
-		return false;
-	}
-}
-
-
