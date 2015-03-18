@@ -4,3 +4,9 @@
 .notValid {
 	border: 2px red solid;
 }
+table thead tr th {
+	text-align: center;
+}
+.show-user button {
+	visibility: hidden;
+}

@@ -1,5 +1,5 @@
 Template.userEdit.events({
-	"click [name='edit-sumbit']": function (event, template) {
+	"click [name='button-update']": function () {
 		var firstName = $("." + this._id + " [name='edit-first-name']").val();
 		var lastName = $("." + this._id + " [name='edit-last-name']").val();
 		var phoneNumber = $("." + this._id + " [name='edit-phone-number']").val();
@@ -17,12 +17,9 @@ Template.userEdit.events({
 			}
 		});
 	},
-	"click [name='edit-cancel']": function (event, template) {
+	"click [name='button-cancel']": function () {
 		Meteor.call("updateEditStatus", this._id, false);
-	},
-	"click [name='edit-delete']": function () {
-		Meteor.call("deleteAUser", this._id);
-	},
+	}
 });
 
 function showEditInputWrongField(id, attributeName) {

@@ -1,9 +1,19 @@
 <template name="user">
-	<tr class="show-user">
+	<tr class="show-user {{_id}}">
+		<td>
+			<button class="btn btn-primary btn-sm" name="button-delete" data-toggle="tooltip" data-placement="right" title="Delete">
+				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+			</button>
+		</td>
 		<td>{{firstName}}</td>
 		<td>{{lastName}}</td>
 		<td>{{phoneNumber}}</td>
 		<td>{{email}}</td>
 		<td>{{address}}</td>
+		<td>
+			<button class="btn btn-primary btn-sm" name="button-edit" data-toggle="tooltip" data-placement="right" title="Edit">
+				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+			</button>
+		</td>
 	</tr>
 </template>

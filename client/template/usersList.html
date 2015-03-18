@@ -2,29 +2,35 @@
 	<table class="table table-striped table-hover">
 		<thead>
 			<tr>
+				<th>&nbsp;</th>
 				<th>First name</th>
 				<th>Last name</th>
 				<th>Phone number</th>
 				<th>Email</th>
 				<th>Address</th>
-				<th></th>
+				<th>&nbsp;</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr class="add-new-user">
+				<td>&nbsp;</td>
 				<td><input type="text" name="first-name" class="form-control" /></td>
 				<td><input type="text" name="last-name" class="form-control" /></td>
 				<td><input type="text" name="phone-number" class="form-control" /></td>
 				<td><input type="text" name="email" class="form-control" /></td>
 				<td><input type="text" name="address" class="form-control" /></td>
-				<td><button class="btn btn-primary btn-sm" name="button-add">Add</button></td>
+				<td>
+					<button class="btn btn-primary btn-sm" name="button-add" data-toggle="tooltip" data-placement="right" title="Add">
+						<span class="glyphicon glyphicon-floppy-save"  aria-hidden="true"></span>
+					</button>
+				</td>
 			</tr>
 			{{#each users}}
-			{{#if editing}}
-			{{> userEdit}}
-			{{else}}
-			{{> user}}
-			{{/if}}
+				{{#if editing}}
+					{{> userEdit}}
+				{{else}}
+					{{> user}}
+				{{/if}}
 			{{/each}}
 		</tbody>
 	</table>
